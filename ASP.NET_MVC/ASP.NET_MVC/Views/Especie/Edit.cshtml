@@ -1,0 +1,51 @@
+﻿@model ASP.NET_MVC.Models.Especie
+
+@{
+    ViewBag.Title = "Editar Especie";
+}
+
+<h2>Editar Especie</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr/>
+
+        @if (ViewBag.MessageSuccess != null)
+        {
+            <div class="message-form">
+                <div class="alert alert-success">
+                    <h4>@ViewBag.MessageSuccess</h4>
+                </div>
+            </div>
+        }
+        @if (ViewBag.MessageError != null)
+        {
+            <div class="message-form">
+                <div class="alert alert-danger">
+                    <h4>@ViewBag.MessageError</h4>
+                </div>
+            </div>
+        }
+
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.EspecieId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descripcion)
+                @Html.ValidationMessageFor(model => model.Descripcion)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+                <a href="@Url.Action("Index", "Especie")" class="btn btn-default">Regresar</a>
+            </div>
+        </div>
+    </div>
+}

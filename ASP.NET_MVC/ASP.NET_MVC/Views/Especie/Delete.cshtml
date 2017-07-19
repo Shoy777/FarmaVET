@@ -1,0 +1,48 @@
+﻿@model ASP.NET_MVC.Models.Especie
+
+@{
+    ViewBag.Title = "Eliminar Especie";
+}
+
+<h2>Eliminar</h2>
+
+<h3>Estas seguro que quieres eliminarlo?</h3>
+<div>
+    <hr />
+    @if (ViewBag.MessageSuccess != null)
+    {
+        <div class="message-form">
+            <div class="alert alert-success">
+                <h4>@ViewBag.MessageSuccess</h4>
+            </div>
+        </div>
+    }
+    @if (ViewBag.MessageError != null)
+    {
+        <div class="message-form">
+            <div class="alert alert-danger">
+                <h4>@ViewBag.MessageError</h4>
+            </div>
+        </div>
+    }
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+            <a href="@Url.Action("Index", "Especie")" class="btn btn-default">Regresar</a>
+        </div>
+    }
+</div>

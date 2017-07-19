@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b0ca8db232cc485fbbcac21e9839823f" Name="Diagram1">
+        <EntityTypeShape EntityType="FarmaVETContext.Boleta" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaVETContext.DetalleBoleta" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaVETContext.Especie" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaVETContext.Laboratorio" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaVETContext.Medicamento" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmaVETContext.TipoMedicamento" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="FarmaVETContext.DetalleBoletaFK" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmaVETContext.DetalleMedicamentoFK" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmaVETContext.MedicamentoEspecieFK" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmaVETContext.MedicamentoLaboratorioFK" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmaVETContext.MedicamentoTipoMedicamentoFK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

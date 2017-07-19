@@ -1,0 +1,96 @@
+﻿@model ASP.NET_MVC.Models.Medicamento
+
+@{
+    ViewBag.Title = "Ingresar Stock";
+}
+
+<h2>Ingresar Stock</h2>
+
+
+@using (Html.BeginForm("IngresarStock", "Medicamento", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Medicamento</h4>
+        <hr />
+        @if (ViewBag.MessageSuccess != null)
+        {
+            <div class="message-form">
+                <div class="alert alert-success">
+                    <h4>@ViewBag.MessageSuccess</h4>
+                </div>
+            </div>
+        }
+        @if (ViewBag.MessageError != null)
+        {
+            <div class="message-form">
+                <div class="alert alert-danger">
+                    <h4>@ViewBag.MessageError</h4>
+                </div>
+            </div>
+        }
+
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.MedicamentoId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Nombre, new { @readonly = "", @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EspecieId, "EspecieId", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Especie.Descripcion, new { @readonly = "", @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoMedicamentoId, "TipoMedicamentoId", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.TipoMedicamento.Descripcion, new { @readonly = "", @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LaboratorioId, "LaboratorioId", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Laboratorio.Descripcion, new { @readonly = "", @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Descripcion, new { @readonly = "", @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Precio, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Precio, new { @readonly = "", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Stock, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Stock, new { @class = "form-control", @type = "number" })
+                @Html.ValidationMessageFor(model => model.Stock)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar Stock" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,31 @@
+﻿@model List<ASP.NET_MVC.Models.DetalleBoleta>
+
+@{
+    ViewBag.Title = "Listado de Ventas";
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Medicamento</th>
+            <th>Especie</th>
+            <th>Tipo de Medicamento</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Sub Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Medicamento.Nombre</td>
+                <td>@item.Medicamento.Especie.Descripcion</td>
+                <td>@item.Medicamento.TipoMedicamento.Descripcion</td>
+                <td>@item.Precio</td>
+                <td>@item.Cantidad</td>
+                <td>@item.SubTotal</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

@@ -1,0 +1,35 @@
+﻿@model List<ASP.NET_MVC.Models.Boleta>
+
+@{
+    ViewBag.Title = "Listado de Ventas";
+}
+
+<h2>Listado de Ventas</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Boleta Nº</th>
+            <th>Cliente</th>
+            <th>Fecha de Venta</th>
+            <th>Total Items</th>
+            <th>Monto Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center"><i class="fa fa-chevron-right"></i></td>
+                <td>@item.BoletaId</td>
+                <td>@item.Cliente</td>
+                <td>@item.FechaVenta</td>
+                <td>@item.CantidadItems</td>
+                <td>@item.MontoTotal</td>
+            </tr>
+            <tr><td>@item.MontoTotal</td><td colspan="5">@Html.Action("_DetalleVenta", new { id = item.BoletaId})</td></tr>
+        }
+    </tbody>
+
+</table>

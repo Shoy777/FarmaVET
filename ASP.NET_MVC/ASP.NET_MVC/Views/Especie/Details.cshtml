@@ -1,0 +1,25 @@
+﻿@model ASP.NET_MVC.Models.Especie
+
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<h2>Detalle</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Edit", "Especie", new { id = Model.EspecieId })" class="btn btn-success">Editar</a>
+    <a href="@Url.Action("Index", "Especie")" class="btn btn-default">Regresar</a>
+</p>

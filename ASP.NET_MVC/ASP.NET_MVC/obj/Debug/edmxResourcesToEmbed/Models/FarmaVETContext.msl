@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FarmaVETContextStoreContainer" CdmEntityContainer="FarmaVETEntities">
+    <EntitySetMapping Name="Boleta">
+      <EntityTypeMapping TypeName="FarmaVETContext.Boleta">
+        <MappingFragment StoreEntitySet="Boleta">
+          <ScalarProperty Name="BoletaId" ColumnName="BoletaId" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="MontoTotal" ColumnName="MontoTotal" />
+          <ScalarProperty Name="CantidadItems" ColumnName="CantidadItems" />
+          <ScalarProperty Name="FechaVenta" ColumnName="FechaVenta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleBoleta">
+      <EntityTypeMapping TypeName="FarmaVETContext.DetalleBoleta">
+        <MappingFragment StoreEntitySet="DetalleBoleta">
+          <ScalarProperty Name="BoletaId" ColumnName="BoletaId" />
+          <ScalarProperty Name="MedicamentoId" ColumnName="MedicamentoId" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Especie">
+      <EntityTypeMapping TypeName="FarmaVETContext.Especie">
+        <MappingFragment StoreEntitySet="Especie">
+          <ScalarProperty Name="EspecieId" ColumnName="EspecieId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Laboratorio">
+      <EntityTypeMapping TypeName="FarmaVETContext.Laboratorio">
+        <MappingFragment StoreEntitySet="Laboratorio">
+          <ScalarProperty Name="LaboratorioId" ColumnName="LaboratorioId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medicamento">
+      <EntityTypeMapping TypeName="FarmaVETContext.Medicamento">
+        <MappingFragment StoreEntitySet="Medicamento">
+          <ScalarProperty Name="MedicamentoId" ColumnName="MedicamentoId" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="EspecieId" ColumnName="EspecieId" />
+          <ScalarProperty Name="TipoMedicamentoId" ColumnName="TipoMedicamentoId" />
+          <ScalarProperty Name="LaboratorioId" ColumnName="LaboratorioId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoMedicamento">
+      <EntityTypeMapping TypeName="FarmaVETContext.TipoMedicamento">
+        <MappingFragment StoreEntitySet="TipoMedicamento">
+          <ScalarProperty Name="TipoMedicamentoId" ColumnName="TipoMedicamentoId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_AgregarStock" FunctionName="FarmaVETContext.Store.SP_AgregarStock" />
+    <FunctionImportMapping FunctionImportName="SP_DarBajaMedicamento" FunctionName="FarmaVETContext.Store.SP_DarBajaMedicamento" />
+    <FunctionImportMapping FunctionImportName="SP_ListarMedicamentosActivos" FunctionName="FarmaVETContext.Store.SP_ListarMedicamentosActivos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FarmaVETContext.SP_ListarMedicamentosActivos_Result">
+          <ScalarProperty Name="MedicamentoId" ColumnName="MedicamentoId" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="EspecieId" ColumnName="EspecieId" />
+          <ScalarProperty Name="TipoMedicamentoId" ColumnName="TipoMedicamentoId" />
+          <ScalarProperty Name="LaboratorioId" ColumnName="LaboratorioId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_ListarMedicamentosDeBaja" FunctionName="FarmaVETContext.Store.SP_ListarMedicamentosDeBaja">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FarmaVETContext.SP_ListarMedicamentosDeBaja_Result">
+          <ScalarProperty Name="MedicamentoId" ColumnName="MedicamentoId" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="EspecieId" ColumnName="EspecieId" />
+          <ScalarProperty Name="TipoMedicamentoId" ColumnName="TipoMedicamentoId" />
+          <ScalarProperty Name="LaboratorioId" ColumnName="LaboratorioId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_ListarMedicamentosVenta" FunctionName="FarmaVETContext.Store.SP_ListarMedicamentosVenta">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FarmaVETContext.SP_ListarMedicamentosVenta_Result">
+          <ScalarProperty Name="MedicamentoId" ColumnName="MedicamentoId" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="EspecieId" ColumnName="EspecieId" />
+          <ScalarProperty Name="TipoMedicamentoId" ColumnName="TipoMedicamentoId" />
+          <ScalarProperty Name="LaboratorioId" ColumnName="LaboratorioId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_ModificarMedicamento" FunctionName="FarmaVETContext.Store.SP_ModificarMedicamento" />
+    <FunctionImportMapping FunctionImportName="SP_ReducirStockMedicamento" FunctionName="FarmaVETContext.Store.SP_ReducirStockMedicamento" />
+    <FunctionImportMapping FunctionImportName="SP_RegistrarMedicamento" FunctionName="FarmaVETContext.Store.SP_RegistrarMedicamento" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FarmaVETContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Boleta">
+    <Key>
+      <PropertyRef Name="BoletaId" />
+    </Key>
+    <Property Name="BoletaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MontoTotal" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="CantidadItems" Type="Int32" />
+    <Property Name="FechaVenta" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DetalleBoleta" Relationship="Self.DetalleBoletaFK" FromRole="Boleta" ToRole="DetalleBoleta" />
+  </EntityType>
+  <EntityType Name="DetalleBoleta">
+    <Key>
+      <PropertyRef Name="BoletaId" />
+      <PropertyRef Name="MedicamentoId" />
+    </Key>
+    <Property Name="BoletaId" Type="Int32" Nullable="false" />
+    <Property Name="MedicamentoId" Type="Int32" Nullable="false" />
+    <Property Name="Precio" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="SubTotal" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Boleta" Relationship="Self.DetalleBoletaFK" FromRole="DetalleBoleta" ToRole="Boleta" />
+    <NavigationProperty Name="Medicamento" Relationship="Self.DetalleMedicamentoFK" FromRole="DetalleBoleta" ToRole="Medicamento" />
+  </EntityType>
+  <EntityType Name="Especie">
+    <Key>
+      <PropertyRef Name="EspecieId" />
+    </Key>
+    <Property Name="EspecieId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Medicamento" Relationship="Self.MedicamentoEspecieFK" FromRole="Especie" ToRole="Medicamento" />
+  </EntityType>
+  <EntityType Name="Laboratorio">
+    <Key>
+      <PropertyRef Name="LaboratorioId" />
+    </Key>
+    <Property Name="LaboratorioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Medicamento" Relationship="Self.MedicamentoLaboratorioFK" FromRole="Laboratorio" ToRole="Medicamento" />
+  </EntityType>
+  <EntityType Name="Medicamento">
+    <Key>
+      <PropertyRef Name="MedicamentoId" />
+    </Key>
+    <Property Name="MedicamentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EspecieId" Type="Int32" Nullable="false" />
+    <Property Name="TipoMedicamentoId" Type="Int32" Nullable="false" />
+    <Property Name="LaboratorioId" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Precio" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="Stock" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="DetalleBoleta" Relationship="Self.DetalleMedicamentoFK" FromRole="Medicamento" ToRole="DetalleBoleta" />
+    <NavigationProperty Name="Especie" Relationship="Self.MedicamentoEspecieFK" FromRole="Medicamento" ToRole="Especie" />
+    <NavigationProperty Name="Laboratorio" Relationship="Self.MedicamentoLaboratorioFK" FromRole="Medicamento" ToRole="Laboratorio" />
+    <NavigationProperty Name="TipoMedicamento" Relationship="Self.MedicamentoTipoMedicamentoFK" FromRole="Medicamento" ToRole="TipoMedicamento" />
+  </EntityType>
+  <EntityType Name="TipoMedicamento">
+    <Key>
+      <PropertyRef Name="TipoMedicamentoId" />
+    </Key>
+    <Property Name="TipoMedicamentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Medicamento" Relationship="Self.MedicamentoTipoMedicamentoFK" FromRole="TipoMedicamento" ToRole="Medicamento" />
+  </EntityType>
+  <Association Name="DetalleBoletaFK">
+    <End Role="Boleta" Type="Self.Boleta" Multiplicity="1" />
+    <End Role="DetalleBoleta" Type="Self.DetalleBoleta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Boleta">
+        <PropertyRef Name="BoletaId" />
+      </Principal>
+      <Dependent Role="DetalleBoleta">
+        <PropertyRef Name="BoletaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DetalleMedicamentoFK">
+    <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="1" />
+    <End Role="DetalleBoleta" Type="Self.DetalleBoleta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicamento">
+        <PropertyRef Name="MedicamentoId" />
+      </Principal>
+      <Dependent Role="DetalleBoleta">
+        <PropertyRef Name="MedicamentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MedicamentoEspecieFK">
+    <End Role="Especie" Type="Self.Especie" Multiplicity="1" />
+    <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Especie">
+        <PropertyRef Name="EspecieId" />
+      </Principal>
+      <Dependent Role="Medicamento">
+        <PropertyRef Name="EspecieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MedicamentoLaboratorioFK">
+    <End Role="Laboratorio" Type="Self.Laboratorio" Multiplicity="1" />
+    <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Laboratorio">
+        <PropertyRef Name="LaboratorioId" />
+      </Principal>
+      <Dependent Role="Medicamento">
+        <PropertyRef Name="LaboratorioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MedicamentoTipoMedicamentoFK">
+    <End Role="TipoMedicamento" Type="Self.TipoMedicamento" Multiplicity="1" />
+    <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoMedicamento">
+        <PropertyRef Name="TipoMedicamentoId" />
+      </Principal>
+      <Dependent Role="Medicamento">
+        <PropertyRef Name="TipoMedicamentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FarmaVETEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Boleta" EntityType="Self.Boleta" />
+    <EntitySet Name="DetalleBoleta" EntityType="Self.DetalleBoleta" />
+    <EntitySet Name="Especie" EntityType="Self.Especie" />
+    <EntitySet Name="Laboratorio" EntityType="Self.Laboratorio" />
+    <EntitySet Name="Medicamento" EntityType="Self.Medicamento" />
+    <EntitySet Name="TipoMedicamento" EntityType="Self.TipoMedicamento" />
+    <AssociationSet Name="DetalleBoletaFK" Association="Self.DetalleBoletaFK">
+      <End Role="Boleta" EntitySet="Boleta" />
+      <End Role="DetalleBoleta" EntitySet="DetalleBoleta" />
+    </AssociationSet>
+    <AssociationSet Name="DetalleMedicamentoFK" Association="Self.DetalleMedicamentoFK">
+      <End Role="Medicamento" EntitySet="Medicamento" />
+      <End Role="DetalleBoleta" EntitySet="DetalleBoleta" />
+    </AssociationSet>
+    <AssociationSet Name="MedicamentoEspecieFK" Association="Self.MedicamentoEspecieFK">
+      <End Role="Especie" EntitySet="Especie" />
+      <End Role="Medicamento" EntitySet="Medicamento" />
+    </AssociationSet>
+    <AssociationSet Name="MedicamentoLaboratorioFK" Association="Self.MedicamentoLaboratorioFK">
+      <End Role="Laboratorio" EntitySet="Laboratorio" />
+      <End Role="Medicamento" EntitySet="Medicamento" />
+    </AssociationSet>
+    <AssociationSet Name="MedicamentoTipoMedicamentoFK" Association="Self.MedicamentoTipoMedicamentoFK">
+      <End Role="TipoMedicamento" EntitySet="TipoMedicamento" />
+      <End Role="Medicamento" EntitySet="Medicamento" />
+    </AssociationSet>
+    <FunctionImport Name="SP_AgregarStock">
+      <Parameter Name="MedicamentoId" Mode="In" Type="Int32" />
+      <Parameter Name="StockIngresado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_DarBajaMedicamento">
+      <Parameter Name="MedicamentoId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_ListarMedicamentosActivos" ReturnType="Collection(FarmaVETContext.SP_ListarMedicamentosActivos_Result)" />
+    <FunctionImport Name="SP_ListarMedicamentosDeBaja" ReturnType="Collection(FarmaVETContext.SP_ListarMedicamentosDeBaja_Result)" />
+    <FunctionImport Name="SP_ListarMedicamentosVenta" ReturnType="Collection(FarmaVETContext.SP_ListarMedicamentosVenta_Result)" />
+    <FunctionImport Name="SP_ModificarMedicamento">
+      <Parameter Name="MedicamentoId" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="EspecieId" Mode="In" Type="Int32" />
+      <Parameter Name="TipoMedicamentoId" Mode="In" Type="Int32" />
+      <Parameter Name="LaboratorioId" Mode="In" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Precio" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="SP_ReducirStockMedicamento">
+      <Parameter Name="MedicamentoId" Mode="In" Type="Int32" />
+      <Parameter Name="Stock_Descontado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_RegistrarMedicamento">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="EspecieId" Mode="In" Type="Int32" />
+      <Parameter Name="TipoMedicamentoId" Mode="In" Type="Int32" />
+      <Parameter Name="LaboratorioId" Mode="In" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Precio" Mode="In" Type="Decimal" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="SP_ListarMedicamentosActivos_Result">
+    <Property Type="Int32" Name="MedicamentoId" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="EspecieId" Nullable="false" />
+    <Property Type="Int32" Name="TipoMedicamentoId" Nullable="false" />
+    <Property Type="Int32" Name="LaboratorioId" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="300" />
+    <Property Type="Decimal" Name="Precio" Nullable="false" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="Stock" Nullable="false" />
+    <Property Type="Byte" Name="Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_ListarMedicamentosDeBaja_Result">
+    <Property Type="Int32" Name="MedicamentoId" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="EspecieId" Nullable="false" />
+    <Property Type="Int32" Name="TipoMedicamentoId" Nullable="false" />
+    <Property Type="Int32" Name="LaboratorioId" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="300" />
+    <Property Type="Decimal" Name="Precio" Nullable="false" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="Stock" Nullable="false" />
+    <Property Type="Byte" Name="Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_ListarMedicamentosVenta_Result">
+    <Property Type="Int32" Name="MedicamentoId" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="EspecieId" Nullable="false" />
+    <Property Type="Int32" Name="TipoMedicamentoId" Nullable="false" />
+    <Property Type="Int32" Name="LaboratorioId" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="300" />
+    <Property Type="Decimal" Name="Precio" Nullable="false" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="Stock" Nullable="false" />
+    <Property Type="Byte" Name="Estado" Nullable="false" />
+  </ComplexType>
+</Schema>

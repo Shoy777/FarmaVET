@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Assets/ui/css/base/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
+    @Styles.Render("~/Assets/css")
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Josefin+Sans%3A400i%2C700i&#038;ver=4.7.4' type='text/css' media='all' />
+    <style>.form-control{width:inherit;}form {margin-bottom: 15px;}.message-form{margin-bottom:25px;padding:0 15px;}.field-validation-error{color:#ff5353;font-weight:bold;}body>.container{background:rgba(255,255,255,.75);margin-bottom:30px;}</style>
+</head>
+<body>
+    <header class="header">
+
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation-menu" aria-expanded="false">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Veterinaria</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navigation-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown" role="presentation">
+                            <a href="#" data-toggle="dropdown" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="~/especie/">Especie</a></li>
+                                <li class="divider"></li>
+                                <li><a href="~/laboratorio/">Laboratorio</a></li>
+                                <li class="divider"></li>
+                                <li><a href="~/tipomedicamento/">Tipo de Medicamento</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" role="presentation">
+                            <a href="#" data-toggle="dropdown" aria-expanded="false">Medicamentos <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="~/medicamento/">Medicamentos</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="~/venta/">Ventas</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown" role="presentation">
+                            <a href="#" data-toggle="dropdown" aria-expanded="false">
+                                <b><span>Froilan Cerna</span></b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+
+                @RenderBody()
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-preloader">
+        <div class="preloader"></div>
+    </div>
+
+    <div id="ModalMensaje" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <span id="MostrandoMensaje"></span>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-primary" id="btnOK">OK</button></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="redes-sociales">
+            <a href="#" class="img-circle icon-facebook"><span class="fa fa-facebook"></span></a>
+            <a href="#" class="img-circle icon-twitter"><span class="fa fa-twitter"></span></a>
+            <a href="#" class="img-circle icon-gplus"><span class="fa fa-google"></span></a>
+        </div>
+        <div class="link-footer container">
+            <nav class="nav-footer">
+                <ul>
+                    <li><a href="~/Home/About/">Acerca de Nosotros</a></li>
+                    <li><a href="~/Home/Contact/">Contacto</a></li>
+                    <li><a href="~/Home/Terminos-y-Condiciones/">Terminos y Condiciones</a></li>
+                    <li><a href="~/Home/Politica-de-Cookies/">Politica de Cookies</a></li>
+                </ul>
+            </nav>
+            <div class="copyright">
+                <a href="/">Froilan Cerna &copy; 2017 - Todos los Derechos Reservados</a>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="~/Assets/ui/js/jquery-ui-1.9.2.custom.min.js"></script>
+    @Scripts.Render("~/Assets/js")
+        <script>
+            $(function () {
+                $("#orden tbody i").click(function () {
+                    var id = $(this).attr("id");
+                    var fila = $("#fila-" + id);
+                    if (fila.css("display") == "none") {
+                        fila.css("display", "table-row");
+                    } else {
+                        fila.css("display", "none");
+                    }
+                });
+            });
+        </script>
+</body>
+</html>

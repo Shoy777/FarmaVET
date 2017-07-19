@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FarmaVETContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Boleta">
+    <Key>
+      <PropertyRef Name="BoletaId" />
+    </Key>
+    <Property Name="BoletaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cliente" Type="nvarchar" MaxLength="50" />
+    <Property Name="MontoTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="CantidadItems" Type="int" />
+    <Property Name="FechaVenta" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetalleBoleta">
+    <Key>
+      <PropertyRef Name="BoletaId" />
+      <PropertyRef Name="MedicamentoId" />
+    </Key>
+    <Property Name="BoletaId" Type="int" Nullable="false" />
+    <Property Name="MedicamentoId" Type="int" Nullable="false" />
+    <Property Name="Precio" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="SubTotal" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Especie">
+    <Key>
+      <PropertyRef Name="EspecieId" />
+    </Key>
+    <Property Name="EspecieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Laboratorio">
+    <Key>
+      <PropertyRef Name="LaboratorioId" />
+    </Key>
+    <Property Name="LaboratorioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medicamento">
+    <Key>
+      <PropertyRef Name="MedicamentoId" />
+    </Key>
+    <Property Name="MedicamentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="EspecieId" Type="int" Nullable="false" />
+    <Property Name="TipoMedicamentoId" Type="int" Nullable="false" />
+    <Property Name="LaboratorioId" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="300" />
+    <Property Name="Precio" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="Stock" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoMedicamento">
+    <Key>
+      <PropertyRef Name="TipoMedicamentoId" />
+    </Key>
+    <Property Name="TipoMedicamentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="DetalleBoletaFK">
+    <End Role="Boleta" Type="Self.Boleta" Multiplicity="1" />
+    <End Role="DetalleBoleta" Type="Self.DetalleBoleta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Boleta">
+        <PropertyRef Name="BoletaId" />
+      </Principal>
+      <Dependent Role="DetalleBoleta">
+        <PropertyRef Name="BoletaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DetalleMedicamentoFK">
+    <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="1" />
+    <End Role="DetalleBoleta" Type="Self.DetalleBoleta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicamento">
+        <PropertyRef Name="MedicamentoId" />
+      </Principal>
+      <Dependent Role="DetalleBoleta">
+        <PropertyRef Name="MedicamentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MedicamentoEspecieFK">
+    <End Role="Especie" Type="Self.Especie" Multiplicity="1" />
+    <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Especie">
+        <PropertyRef Name="EspecieId" />
+      </Principal>
+      <Dependent Role="Medicamento">
+        <PropertyRef Name="EspecieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MedicamentoLaboratorioFK">
+    <End Role="Laboratorio" Type="Self.Laboratorio" Multiplicity="1" />
+    <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Laboratorio">
+        <PropertyRef Name="LaboratorioId" />
+      </Principal>
+      <Dependent Role="Medicamento">
+        <PropertyRef Name="LaboratorioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MedicamentoTipoMedicamentoFK">
+    <End Role="TipoMedicamento" Type="Self.TipoMedicamento" Multiplicity="1" />
+    <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoMedicamento">
+        <PropertyRef Name="TipoMedicamentoId" />
+      </Principal>
+      <Dependent Role="Medicamento">
+        <PropertyRef Name="TipoMedicamentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="SP_AgregarStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MedicamentoId" Type="int" Mode="In" />
+    <Parameter Name="StockIngresado" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_DarBajaMedicamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MedicamentoId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_ListarMedicamentosActivos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_ListarMedicamentosDeBaja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_ListarMedicamentosVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_ModificarMedicamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MedicamentoId" Type="int" Mode="In" />
+    <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="EspecieId" Type="int" Mode="In" />
+    <Parameter Name="TipoMedicamentoId" Type="int" Mode="In" />
+    <Parameter Name="LaboratorioId" Type="int" Mode="In" />
+    <Parameter Name="Descripcion" Type="nvarchar" Mode="In" />
+    <Parameter Name="Precio" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="SP_ReducirStockMedicamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MedicamentoId" Type="int" Mode="In" />
+    <Parameter Name="Stock_Descontado" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_RegistrarMedicamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="EspecieId" Type="int" Mode="In" />
+    <Parameter Name="TipoMedicamentoId" Type="int" Mode="In" />
+    <Parameter Name="LaboratorioId" Type="int" Mode="In" />
+    <Parameter Name="Descripcion" Type="nvarchar" Mode="In" />
+    <Parameter Name="Precio" Type="decimal" Mode="In" />
+  </Function>
+  <EntityContainer Name="FarmaVETContextStoreContainer">
+    <EntitySet Name="Boleta" EntityType="Self.Boleta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetalleBoleta" EntityType="Self.DetalleBoleta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Especie" EntityType="Self.Especie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Laboratorio" EntityType="Self.Laboratorio" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medicamento" EntityType="Self.Medicamento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoMedicamento" EntityType="Self.TipoMedicamento" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="DetalleBoletaFK" Association="Self.DetalleBoletaFK">
+      <End Role="Boleta" EntitySet="Boleta" />
+      <End Role="DetalleBoleta" EntitySet="DetalleBoleta" />
+    </AssociationSet>
+    <AssociationSet Name="DetalleMedicamentoFK" Association="Self.DetalleMedicamentoFK">
+      <End Role="Medicamento" EntitySet="Medicamento" />
+      <End Role="DetalleBoleta" EntitySet="DetalleBoleta" />
+    </AssociationSet>
+    <AssociationSet Name="MedicamentoEspecieFK" Association="Self.MedicamentoEspecieFK">
+      <End Role="Especie" EntitySet="Especie" />
+      <End Role="Medicamento" EntitySet="Medicamento" />
+    </AssociationSet>
+    <AssociationSet Name="MedicamentoLaboratorioFK" Association="Self.MedicamentoLaboratorioFK">
+      <End Role="Laboratorio" EntitySet="Laboratorio" />
+      <End Role="Medicamento" EntitySet="Medicamento" />
+    </AssociationSet>
+    <AssociationSet Name="MedicamentoTipoMedicamentoFK" Association="Self.MedicamentoTipoMedicamentoFK">
+      <End Role="TipoMedicamento" EntitySet="TipoMedicamento" />
+      <End Role="Medicamento" EntitySet="Medicamento" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
