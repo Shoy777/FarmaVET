@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<f:view contentType="text/html">
+<h:head>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+	<title><ui:insert name="title">FarmaVET</ui:insert></title>
+	
+	<link rel="stylesheet" href="#{request.contextPath}/Assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="#{request.contextPath}/Assets/css/font-awesome/font-awesome.min.css" />
+	<link rel="stylesheet" href="#{request.contextPath}/Assets/css/style.css" />
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Josefin+Sans%3A400i%2C700i&#038;ver=4.7.4' type='text/css' media='all' />
+    
+    <style>
+    .form-control{width:inherit;}
+    form {margin-bottom: 15px;}
+    .message-form{margin-bottom:25px;padding:0 15px;}
+    .field-validation-error{color:#ff5353;font-weight:bold;}
+    body>.container{background:rgba(255,255,255,.75);margin-bottom:30px;}
+    .breadcrumb{margin-top: 15px;}
+	.ui-widget{font-family: 'Josefin Sans',sans-serif;}
+	.ui-button-text-only .ui-button-text{padding: 3px 12px;}
+	.ui-button .ui-button-text{line-height: 1em !important;}
+    </style>
+	
+</h:head>
+<h:body>
+
+	<header class="header">
+	
+		<nav class="navbar">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation-menu" aria-expanded="false">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">Veterinaria</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="navigation-menu">
+					<ul class="nav navbar-nav">
+						<li class="dropdown" role="presentation">
+							<a href="#" data-toggle="dropdown" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#{request.contextPath}/especie/index.jsf">Especie</a></li>
+								<li class="divider"></li>
+								<li><a href="#{request.contextPath}/laboratorio/index.jsf">Laboratorio</a></li>
+								<li class="divider"></li>
+								<li><a href="#{request.contextPath}/tipomedicamento/index.jsf">Tipo de Medicamento</a></li>
+							</ul>
+						</li>
+						<li class="dropdown" role="presentation">
+							<a href="#" data-toggle="dropdown" aria-expanded="false">Medicamentos <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#{request.contextPath}/medicamento/index.jsf">Medicamentos</a></li>
+							</ul>
+						</li>
+						<li><a href="#{request.contextPath}/venta/index.jsf">Ventas</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown" role="presentation">
+							<a href="#" data-toggle="dropdown" aria-expanded="false">
+								<b><span>Froilan Cerna</span></b>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+	</header>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<ui:insert name="RenderBody">
+				</ui:insert>
+			</div>
+		</div>
+	</div>
+	
+	<footer class="footer">
+		<div class="redes-sociales">
+			<a href="#" class="img-circle icon-facebook"><span class="fa fa-facebook"></span></a>
+			<a href="#" class="img-circle icon-twitter"><span class="fa fa-twitter"></span></a>
+			<a href="#" class="img-circle icon-gplus"><span class="fa fa-google"></span></a>
+		</div>
+		<div class="link-footer container">
+			<nav class="nav-footer">
+				<ul>
+					<li><a href="#">Acerca de Nosotros</a></li>
+					<li><a href="#">Contacto</a></li>
+					<li><a href="#">Terminos y Condiciones</a></li>
+					<li><a href="#">Politica de Cookies</a></li>
+				</ul>
+			</nav>
+			<div class="copyright">
+				<a href="/">Froilan Cerna &copy; 2017 - Todos los Derechos Reservados</a>
+			</div>
+		</div>
+	</footer>
+	
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+	<script type="text/javascript" src="#{request.contextPath}/Assets/js/modernizr-2.6.2.js"></script>
+	<script type="text/javascript" src="#{request.contextPath}/Assets/js/respond.min.js"></script>
+	<script type="text/javascript" src="#{request.contextPath}/Assets/js/bootstrap.min.js"></script>
+	<script>
+	$(function () {
+		$("#orden tbody i").click(function () {
+			var id = $(this).attr("id");
+			var fila = $("#fila-" + id);
+			if (fila.css("display") == "none") {
+				fila.css("display", "table-row");
+			} else {
+				fila.css("display", "none");
+			}
+		});
+	});
+	</script>
+	<script>
+	$(function () {
+		alert("Hola Mundo");
+	});
+	</script>
+
+</h:body>
+</f:view>
+</html>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../template/master.xhtml">
+	
+	<ui:define name="title">Detalle Medicamento</ui:define>
+	
+	<f:metadata>
+		<f:viewParam name="id" value="#{medicamentoManaged.id}" required="true"></f:viewParam>
+		<f:event type="preRenderView" listener="#{medicamentoManaged.load}" />
+	</f:metadata>
+	
+	<ui:define name="RenderBody">
+	
+		<h2>Detalle Medicamento</h2>
+		
+		<hr/>
+		
+	    <dl class="dl-horizontal">
+	    	<dt>ID : </dt>
+	    	<dd><h:outputLabel value="#{medicamentoManaged.medicamento.medicamentoId}"></h:outputLabel></dd>
+	    	<dt>Nombre : </dt>
+	    	<dd><h:outputLabel value="#{medicamentoManaged.medicamento.nombre}"></h:outputLabel></dd>
+	    	<dt>Especie : </dt>
+	    	<dd><h:outputLabel value="#{medicamentoManaged.medicamento.especie.descripcion}"></h:outputLabel></dd>
+	    	<dt>Laboratorio : </dt>
+	    	<dd><h:outputLabel value="#{medicamentoManaged.medicamento.laboratorio.descripcion}"></h:outputLabel></dd>
+	    	<dt>Tipo Medicamento : </dt>
+	    	<dd><h:outputLabel value="#{medicamentoManaged.medicamento.tipoMedicamento.descripcion}"></h:outputLabel></dd>
+	    	<dt>Descripcion : </dt>
+	    	<dd><h:outputLabel value="#{medicamentoManaged.medicamento.descripcion}"></h:outputLabel></dd>
+	    	<dt>Precio : </dt>
+	    	<dd><h:outputLabel value="#{medicamentoManaged.medicamento.precio}"></h:outputLabel></dd>
+	    	<dt>Estado : </dt>
+	    	<dd><h:outputLabel value="#{medicamentoManaged.medicamento.estado==1? 'Activo' : 'De Baja'}"></h:outputLabel></dd>
+	    </dl>
+	         	
+		<div class="form-group clearfix">
+			<div class="col-md-offset-2 col-md-10">
+				<a href="#{request.contextPath}/medicamento/edit.jsf?id=#{medicamentoManaged.medicamento.medicamentoId}" class="btn btn-success">Editar</a>
+				<a href="#{request.contextPath}/medicamento/index.jsf" class="btn btn-default">Regresar</a>
+			</div>
+		</div>
+		
+	</ui:define>
+</ui:composition>

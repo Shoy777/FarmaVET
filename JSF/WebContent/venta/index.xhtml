@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../template/master.xhtml">
+	
+	<ui:define name="title">Registrar Venta</ui:define>
+	
+	<ui:define name="RenderBody">
+	
+		<div class="breadcrumb">
+			<div class="row">
+				<div class="col-sm-10">
+					<h2>Registrar Venta</h2>
+				</div>
+				<div class="col-sm-2 text-right">
+					<a href="~/venta/neworder" class="btn btn-success">Registrar Venta</a>
+				</div>
+			</div>
+		</div>
+		
+		<h:form id="frmRegistrarVenta" class="col-sm-12" prependId="false">
+			
+			<div class="form-horizontal">
+				<hr/>
+				
+				<p:messages id="message" showDetail="true" globalOnly="true" autoUpdate="true" />
+				<!--  
+				<div class="form-group">
+					<label for="txtCliente" class="control-label col-md-2">Cliente</label>
+					<div class="col-md-10">
+						<h:inputText type="text" styleClass="form-control" placeholder="Cliente" 
+						id="txtCliente" label="Cliente">
+						</h:inputText>
+					</div>
+				</div>
+				-->
+				
+				<div class="form-group">
+					<label for="cboMedicamento" class="control-label col-md-2">Medicamento</label>
+					<div class="col-md-10">
+						<h:selectOneMenu value="#{ventaManaged.medicamento.medicamentoId}" id="cboMedicamento" styleClass="form-control">
+							<f:selectItem itemLabel="Seleccione Medicamento" itemValue="0"/>
+							<f:selectItems value="#{medicamentoManaged.lista}" var="m"
+							itemLabel="#{m.nombre} #{m.precio}" itemValue="#{m.medicamentoId}"/>
+						</h:selectOneMenu>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="txtCantidad" class="control-label col-md-2">Cantidad</label>
+					<div class="col-md-10">
+						<h:inputText type="text" value="#{ventaManaged.cantidad}" styleClass="form-control" placeholder="Cantidad" 
+						id="txtCantidad" label="Cantidad">
+						</h:inputText>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-10">
+						
+						<p:commandButton value="Agregar Detalle" action="#{ventaManaged.addDetalle}" styleClass="btn btn-success" update="ventaDetails">
+							<p:confirm header="Confirmacion" message="Esta Seguro?" icon="ui-icon-alert" />
+						</p:commandButton>
+						
+						<p:commandButton value="Registrar Venta" action="#{ventaManaged.venta}" styleClass="btn btn-success">
+							<p:confirm header="Confirmacion" message="Esta Seguro?" icon="ui-icon-alert" />
+						</p:commandButton>
+						
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="message" />
+							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+						
+						<a href="#{request.contextPath}/venta/index.jsf" class="btn btn-default">Regresar</a>
+					</div>
+				</div>
+			</div>
+			
+			<p:dataTable id="ventaDetails" styleClass="table table-condensed table-stripped" value="#{sessionScope.ventadetails}" var="v" rows="25">
+		   		<p:column>
+		   			<f:facet name="header">ID</f:facet>
+		   			<h:outputText value="#{v.medicamento.medicamentoId}" />
+		   		</p:column>
+		   		<p:column>
+		   			<f:facet name="header">Nombre</f:facet>
+		   			<h:outputText value="#{v.medicamento.nombre}" />
+		   		</p:column>
+		    	<p:column>
+		   			<f:facet name="header">Especie</f:facet>
+		   			<h:outputText value="#{v.medicamento.especie.descripcion}" />
+				</p:column>
+		    	<p:column>
+		   			<f:facet name="header">Laboratorio</f:facet>
+		   			<h:outputText value="#{v.medicamento.laboratorio.descripcion}" />
+				</p:column>
+		    	<p:column>
+		   			<f:facet name="header">Tipo de Medicamento</f:facet>
+		   			<h:outputText value="#{v.medicamento.tipoMedicamento.descripcion}" />
+				</p:column>
+		    	<p:column>
+		   			<f:facet name="header">Precio</f:facet>
+		   			<h:outputText value="#{v.precio}" />
+				</p:column>
+		    	<p:column>
+		   			<f:facet name="header">Cantidad</f:facet>
+		   			<h:outputText value="#{v.cantidad}" />
+				</p:column>
+		    	<p:column>
+		   			<f:facet name="header">Subtotal</f:facet>
+		   			<h:outputText value="#{v.subTotal}" />
+				</p:column>
+		    	<p:column>
+		   			<f:facet name="header"></f:facet>
+					<a href="#{request.contextPath}/venta/edit.jsf?id=#{l.tipomedicamentoId}" class="btn btn-success fa fa-pencil"></a>
+					<a href="#{request.contextPath}/venta/delete.jsf?id=#{l.tipomedicamentoId}" class="btn btn-danger fa fa-trash"></a>
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

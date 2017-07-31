@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../template/master.xhtml">
+	
+	<ui:define name="title">Ingresar Stock</ui:define>
+	
+	<f:metadata>
+		<f:viewParam name="id" value="#{medicamentoManaged.id}" required="true"></f:viewParam>
+		<f:event type="preRenderView" listener="#{medicamentoManaged.load}" />
+	</f:metadata>
+	
+	<ui:define name="RenderBody">
+	
+		<h2>Ingresar Stock</h2>
+		
+		<h:form id="frmAddStock" class="col-sm-12">
+			
+			<div class="form-horizontal">
+				<hr/>
+				
+				<p:messages id="message" showDetail="true" globalOnly="true" autoUpdate="true" closable="true" />
+				
+               	<h:inputHidden id="Id" value="#{especieManaged.especie.especieId}"></h:inputHidden>
+               	
+				<div class="form-group">
+					<label for="txtNombre" class="control-label col-md-2">Nombre</label>
+					<div class="col-md-10">
+						<h:inputText type="text" value="#{medicamentoManaged.medicamento.nombre}" styleClass="form-control" placeholder="Nombre" 
+						id="txtNombre" label="Nombre" disabled="true">
+						</h:inputText>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="txtEspecie" class="control-label col-md-2">Especie</label>
+					<div class="col-md-10">
+						<h:inputText type="text" value="#{medicamentoManaged.medicamento.especie.descripcion}" styleClass="form-control" placeholder="Nombre" 
+						id="txtEspecie" label="Nombre" disabled="true">
+						</h:inputText>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="txtLaboratorio" class="control-label col-md-2">Laboratorio</label>
+					<div class="col-md-10">
+						<h:inputText type="text" value="#{medicamentoManaged.medicamento.laboratorio.descripcion}" styleClass="form-control" placeholder="Nombre" 
+						id="txtLaboratorio" label="Nombre" disabled="true">
+						</h:inputText>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="txtTM" class="control-label col-md-2">Tipo Medicamento</label>
+					<div class="col-md-10">
+						<h:inputText type="text" value="#{medicamentoManaged.medicamento.tipoMedicamento.descripcion}" styleClass="form-control" placeholder="Nombre" 
+						id="txtTM" label="Nombre" disabled="true">
+						</h:inputText>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="txtDescripcion" class="control-label col-md-2">Descripcion</label>
+					<div class="col-md-10">
+						<h:inputTextarea type="text" value="#{medicamentoManaged.medicamento.descripcion}" styleClass="form-control" placeholder="Descripcion" 
+						id="txtDescripcion" label="Descripcion" disabled="true">
+						</h:inputTextarea>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="txtPrecio" class="control-label col-md-2">Precio</label>
+					<div class="col-md-10">
+						<h:inputText type="text" value="#{medicamentoManaged.medicamento.precio}" styleClass="form-control" placeholder="Precio" 
+						id="txtPrecio" label="Precio" disabled="true">
+						<f:convertNumber></f:convertNumber>
+						</h:inputText>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="txtStock" class="control-label col-md-2">Stock</label>
+					<div class="col-md-10">
+						<h:inputText type="text" value="#{medicamentoManaged.medicamento.stock}" styleClass="form-control" placeholder="Stock" 
+						id="txtStock" label="Stock" readonly="true">
+						</h:inputText>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="txtCantidad" class="control-label col-md-2">Cantidad</label>
+					<div class="col-md-10">
+						<h:inputText type="text" value="#{medicamentoManaged.medicamento.cantidad}" styleClass="form-control" placeholder="Cantidad" 
+						id="txtCantidad" label="Cantidad">
+						<f:convertNumber></f:convertNumber>
+						</h:inputText>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-10">
+						
+						<p:commandButton value="Ingresar" action="#{medicamentoManaged.addstock}" styleClass="btn btn-success">
+							<p:confirm header="Confirmacion" message="Esta Seguro?" icon="ui-icon-alert" />
+						</p:commandButton>
+						
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="message" />
+							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+						
+						<a href="#{request.contextPath}/medicamento/index.jsf" class="btn btn-default">Regresar</a>
+					</div>
+				</div>
+			</div>
+			
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

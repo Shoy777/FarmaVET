@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../template/master.xhtml">
+	
+	<ui:define name="title">Detalle Especie</ui:define>
+	
+	<f:metadata>
+		<f:viewParam name="id" value="#{especieManaged.id}"></f:viewParam>
+		<f:event type="preRenderView" listener="#{especieManaged.load}" />
+	</f:metadata>
+	
+	<ui:define name="RenderBody">
+	
+		<h2>Detalle Especie</h2>
+		
+		<hr/>
+		
+	    <dl class="dl-horizontal">
+	    	<dt>ID</dt>
+	    	<dd><h:outputLabel value="#{especieManaged.especie.especieId}"></h:outputLabel></dd>
+	    	<dt>Descripcion</dt>
+	    	<dd><h:outputLabel value="#{especieManaged.especie.descripcion}"></h:outputLabel></dd>
+	    </dl>
+	         	
+		<div class="form-group clearfix">
+			<div class="col-md-offset-2 col-md-10">
+				<a href="#{request.contextPath}/especie/edit.jsf?id=#{especieManaged.especie.especieId}" class="btn btn-success">Editar</a>
+				<a href="#{request.contextPath}/especie/index.jsf" class="btn btn-default">Regresar</a>
+			</div>
+		</div>
+		
+	</ui:define>
+</ui:composition>
